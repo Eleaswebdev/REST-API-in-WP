@@ -21,16 +21,6 @@ A simple front-end-only project that connects with your WordPress backend using 
 
 ---
 
-## 📁 Folder Structure
-
-wp-rest-api-demo/ ├── index.html # Fetch and list all posts ├── post-details.html # View full content of a single post ├── create-post.html # Form to create a new post ├── edit-post.html # Form to update an existing post ├── js/ │ ├── create-post.js # Create post logic │ ├── update-post.js # Update post logic │ ├── delete-post.js # Delete post logic │ └── common.js # Shared token/auth setup └── style.css # Optional: your own styling
-
-csharp
-Copy
-Edit
-
----
-
 ## 🔧 Setup Instructions
 
 1. Make sure you have a local WordPress site running (e.g. `http://rest-api.local`)
