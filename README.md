@@ -34,10 +34,8 @@ Edit
 ## 🔧 Setup Instructions
 
 1. Make sure you have a local WordPress site running (e.g. `http://rest-api.local`)
-2. Enable REST API and Basic Authentication by installing this plugin:
-   👉 [`https://github.com/WP-API/Basic-Auth`](https://github.com/WP-API/Basic-Auth)
-3. Clone or download this repo.
-4. Update `common.js` with your credentials:
+2. Clone or download this repo.
+3. Update `config.js` with your credentials:
 
 ```js
 const apiBase = 'http://rest-api.local/wp-json/wp/v2';
