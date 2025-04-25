@@ -42,7 +42,7 @@ Edit
 ```js
 const apiBase = 'http://rest-api.local/wp-json/wp/v2';
 const username = 'admin';
-const password = 'your-application-password-here'; // e.g., 24-char App Password
+const password = 'your-application-password-here'; // go to your wordpress user profile and in application password section, generate it and copy and paste here
 const token = btoa(`${username}:${password}`);
 Open index.html in your browser (e.g. using Live Server).
 
