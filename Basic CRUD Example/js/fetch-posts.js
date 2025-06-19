@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
-        <h2>${post.title.rendered}</h2>
+        <h2>${post.title}</h2>
         <div>${post.excerpt.rendered}</div>
         <a href="post-details.html?id=${post.id}" target="_blank">Read More</a>
         <br><button onclick="deletePost(${post.id})">Delete</button>

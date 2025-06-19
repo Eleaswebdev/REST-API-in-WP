@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Plugin Settings - Cards UI</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .card {
+      border: 1px solid #ccc;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+      max-width: 400px;
+    }
+    .card label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+    .card input {
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 8px;
+    }
+    .card button {
+      padding: 6px 10px;
+      background-color: #0073aa;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .card button:hover {
+      background-color: #005f8d;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Plugin Settings (Editable Cards)</h2>
+<div id="cards-container"></div>
+
+<script>
+    const apiBase = 'http://rest-api.local/wp-json/my-plugin/v1';
+    const token = btoa('admin:Q3l6 VBJ9 5QoH MbMZ LssE Jm9K'); // base64 encode
+  
+    document.addEventListener('DOMContentLoaded', function () {
+      fetch(`${apiBase}/settings`, {
+        headers: {
+          'Authorization': `Basic ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())  
+     
+      // Now response store in a variable as json; we call that variable here settings/data/anything
+      .then(data => {
+        const container = document.getElementById('cards-container');
+        container.innerHTML = '';
+
+        console.log('Fetched settings:', data);
+  
+        Object.entries(data).forEach(([key, value]) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+  
+          card.innerHTML = `
+            <label for="${key}">${key}</label>
+            <input type="text" id="${key}" value="${value}" />
+            <button onclick="updateSetting('${key}')">Update</button>
+          `;
+  
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching settings:', error);
+      });
+    });
+  
+    function updateSetting(fieldKey) {
+      const fieldValue = document.getElementById(fieldKey).value;
+  
+      // First fetch current data
+      fetch(`${apiBase}/settings`, {
+        headers: {
+          'Authorization': `Basic ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(currentSettings => {
+        currentSettings[fieldKey] = fieldValue;
+  
+        // Send updated data back
+        return fetch(`${apiBase}/settings`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Basic ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(currentSettings)
+        });
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(`Field "${fieldKey}" updated successfully!`);
+      })
+      .catch(error => {
+        console.error('Update failed:', error);
+        alert(`Failed to update "${fieldKey}".`);
+      });
+    }
+  </script>
+  
+
+</body>
+</html>
